@@ -1,76 +1,206 @@
-class CircularCheckbox : Control
+[Serializable, StructLayout(LayoutKind.Sequential)]
+public struct RECT
 {
-    private Color borderColor;
-    public Color BorderColor
+    public RECT(Rectangle rect)
     {
-        get { return borderColor; }
-        set { borderColor = value; }
+        Left = rect.Left;
+        Top = rect.Top;
+        Right = rect.Right;
+        Bottom = rect.Bottom;
     }
 
-    private Color background;
-    public Color Background
+    public Rectangle Rect
     {
-        get { return background; }
-        set { background = value; }
+        get
+        {
+            return new Rectangle(Left, Top, Right - Left, Bottom - Top);
+        }
     }
 
-    private Color tickColor;
-    public Color TickColor
+    public Point Location
     {
-        get { return tickColor; }
-        set { tickColor = value; }
+        get
+        {
+            return new Point(Left, Top);
+        }
     }
 
-    private bool isChecked;
-    public bool IsChecked
+    public int Left;
+    public int Top;
+    public int Right;
+    public int Bottom;
+}
+
+public class ToolTipComboBox: ComboBox
+{
+    #region Fields
+
+    private ToolTip toolTip;
+    private bool _tooltipVisible;
+    private bool _dropDownOpen;
+    #endregion
+
+    #region Types
+
+    [StructLayout(LayoutKind.Sequential)]
+    // ReSharper disable once InconsistentNaming
+    public struct COMBOBOXINFO
     {
-        get { return isChecked; }
-        set { isChecked = value; }
+        public Int32 cbSize;
+        public RECT rcItem;
+        public RECT rcButton;
+        public ComboBoxButtonState buttonState;
+        public IntPtr hwndCombo;
+        public IntPtr hwndEdit;
+        public IntPtr hwndList;
     }
 
-    public CircularCheckbox(bool IsChecked)
+    public enum ComboBoxButtonState
     {
-        DoubleBuffered = true;
-        SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-        this.BackColor = Color.Transparent;
-
-        this.IsChecked = IsChecked;
-        Background = Color.White;
-        BorderColor = Color.Black;
-        TickColor = Color.Green;
+        // ReSharper disable once UnusedMember.Global
+        StateSystemNone = 0,
+        // ReSharper disable once UnusedMember.Global
+        StateSystemInvisible = 0x00008000,
+        // ReSharper disable once UnusedMember.Global
+        StateSystemPressed = 0x00000008
     }
 
-    public CircularCheckbox()
-        : this(false)
-    { }
+    [DllImport("user32.dll")]
+    public static extern bool GetComboBoxInfo(IntPtr hWnd, ref COMBOBOXINFO pcbi);
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
 
-    protected override void OnPaint(PaintEventArgs e)
+    #endregion
+
+    #region Properties
+
+    private IntPtr HwndCombo
     {
-        base.OnPaint(e);
-
-        e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-        Rectangle rc = this.ClientRectangle;
-        Graphics g = e.Graphics;
-        StringFormat sf = new StringFormat();
-        Font f = new Font("Arial", (float)rc.Height * 0.5f, FontStyle.Bold, GraphicsUnit.Pixel);
-
-        sf.Alignment = StringAlignment.Center;
-        sf.LineAlignment = StringAlignment.Center;
-
-        g.FillEllipse(new SolidBrush(Background), rc.Left + 1.5f, rc.Top + 1.5f, rc.Width - 4.0f, rc.Height - 4.0f);
-        g.DrawEllipse(new Pen(new SolidBrush(BorderColor), 3.0f), rc.Left + 1.5f, rc.Top + 1.5f, rc.Width - 4.0f, rc.Height - 4.0f);
-
-        if (IsChecked)
-            g.DrawString("\u2713", f, new SolidBrush(tickColor) , rc, sf);
-
+        get
+        {
+            COMBOBOXINFO pcbi = new COMBOBOXINFO();
+            pcbi.cbSize = Marshal.SizeOf(pcbi);
+            GetComboBoxInfo(Handle, ref pcbi);
+            return pcbi.hwndCombo;
+        }
     }
 
-    protected override void OnClick(EventArgs e)
+    private IntPtr HwndDropDown
     {
-        base.OnClick(e);
-
-        IsChecked = IsChecked ? false : true;
-
-        Invalidate();
+        get
+        {
+            COMBOBOXINFO pcbi = new COMBOBOXINFO();
+            pcbi.cbSize = Marshal.SizeOf(pcbi);
+            GetComboBoxInfo(Handle, ref pcbi);
+            return pcbi.hwndList;
+        }
     }
+
+    [Browsable(false)]
+    public new DrawMode DrawMode
+    {
+        get { return base.DrawMode; }
+        set { base.DrawMode = value; }
+    }
+
+    #endregion
+
+    #region ctor
+
+    public ToolTipComboBox()
+    {
+        toolTip = new ToolTip
+        {
+            UseAnimation = false,
+            UseFading = false
+        };
+
+        base.DrawMode = DrawMode.OwnerDrawFixed;
+        DrawItem += OnDrawItem;
+        DropDownClosed += OnDropDownClosed;
+        DropDown += OnDropDown;
+        MouseLeave += OnMouseLeave;
+    }
+
+    #endregion
+
+    #region Methods
+
+    private void OnDropDown(object sender, EventArgs e)
+    {
+        _dropDownOpen = true;
+    }
+
+    private void OnMouseLeave(object sender, EventArgs e)
+    {
+        ResetToolTip();
+    }
+
+    private void ShowToolTip(string text, int x, int y)
+    {
+        toolTip.Show(text, this, x, y);
+        _tooltipVisible = true;
+    }
+
+    private void OnDrawItem(object sender, DrawItemEventArgs e)
+    {
+        ComboBox cbo = sender as ComboBox;
+        if (e.Index == -1) return;
+
+        // ReSharper disable once PossibleNullReferenceException
+        string text = cbo.GetItemText(cbo.Items[e.Index]);
+        e.DrawBackground();
+
+        if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+        {
+            TextRenderer.DrawText(e.Graphics, text, e.Font, e.Bounds.Location, SystemColors.Window);
+
+            if (_dropDownOpen)
+            {
+                Size szText = TextRenderer.MeasureText(text, cbo.Font);
+                if (szText.Width > cbo.Width - SystemInformation.VerticalScrollBarWidth && !_tooltipVisible)
+                {
+                    RECT rcDropDown;
+                    GetWindowRect(HwndDropDown, out rcDropDown);
+
+                    RECT rcCombo;
+                    GetWindowRect(HwndCombo, out rcCombo);
+
+                    if (rcCombo.Top > rcDropDown.Top)
+                    {
+                        ShowToolTip(text, e.Bounds.X, e.Bounds.Y - rcDropDown.Rect.Height - cbo.ItemHeight - 5);
+                    }
+                    else
+                    {
+                        ShowToolTip(text, e.Bounds.X, e.Bounds.Y + cbo.ItemHeight - cbo.ItemHeight);
+                    }
+                }
+            }
+        }
+        else
+        {
+            ResetToolTip();
+            TextRenderer.DrawText(e.Graphics, text, e.Font, e.Bounds.Location, cbo.ForeColor);
+        }
+
+        e.DrawFocusRectangle();
+    }
+
+    private void OnDropDownClosed(object sender, EventArgs e)
+    {
+        _dropDownOpen = false;
+        ResetToolTip();
+    }
+
+    private void ResetToolTip()
+    {
+        if (_tooltipVisible)
+        {
+            // ReSharper disable once AssignNullToNotNullAttribute
+            toolTip.SetToolTip(this, null);
+            _tooltipVisible = false;
+        }
+    }
+
+    #endregion
 }
