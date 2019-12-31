@@ -1,0 +1,57 @@
+Renovation Software Capture Assistant License Agreement
+
+BY INSTALLING OR USING  RENOVATION SOFTWARE CAPTURE ASSISTANT (THE "PRODUCT"), THE INDIVIDUAL OR ENTITY LICENSING THE PRODUCT ("LICENSEE" OR "YOU" OR "YOUR") IS CONSENTING TO BE BOUND BY AND IS BECOMING A PARTY TO THIS AGREEMENT. 
+
+IF LICENSEE DOES NOT AGREE TO ALL OF THE TERMS OF THIS AGREEMENT, THE LICENSEE MUST NOT INSTALL OR USE THE SOFTWARE. IF THESE TERMS ARE CONSIDERED AN OFFER, ACCEPTANCE IS EXPRESSLY LIMITED TO THESE TERMS.
+
+1. DEFINITIONS
+The "Renovation Software Capture Assistant" Software ("Product"), is governed by the terms of this License Agreement ("Agreement"). The Software is being licensed, not sold, to you ("Licensee") by Renovation Software ("Licensor"). Except as expressly licensed hereunder, all rights in the Software remain the sole and exclusive property of Licensor.
+
+2. LICENSE GRANT. 
+Renovation Software grants Licensee a limited,  non-exclusive, non-sublicenseable, and non-transferable license to use the executable code version of the Product, provided any copy must contain all of the original proprietary notices. 
+
+3. RESTRICTIONS. 
+Except as otherwise expressly permitted in this Agreement. Licensee may not: 
+(a) decompile, disassemble, reverse engineer, or otherwise attempt to derive the source code for the Product;
+(b) encumber, sell, rent, lease, sublicense, or otherwise transfer rights to the Product; 
+(c) use the Software for timesharing or service bureau purposes; 
+(d) remove or alter any trademark, logo, copyright or other proprietary notices, legends, symbols or labels in the Product; 
+               
+4. FEES. 
+The fee for said license shall be as set forth on the Renovation Software website (www.renovation-software.com)
+
+5. PROPRIETARY RIGHTS. 
+Title, ownership rights, and intellectual property rights in the Product shall remain in Renovation Software and/or its suppliers. Licensee acknowledges such ownership and intellectual property rights and will not take any action to jeopardize, limit or interfere in any manner with Renovation Software's or its suppliers' ownership of or rights with respect to the Product. The Product is protected by copyright and other intellectual property laws and by international treaties. 
+Title and related rights in the content accessed through the Product is the property of the applicable content owner and is protected by applicable law. The license granted under this Agreement gives Licensee no rights to such content.
+
+6. DISCLAIMERS. 
+RENOVATION SOFTWARE DOES NOT VERIFY THE CONTENT OF THE MATERIAL ACCESSED BY YOU THROUGH THE USE OF THE PRODUCT ("CONTENT").
+THE PRODUCT AND CONTENT ARE PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND, INCLUDING WITHOUT LIMITATION ANY EXPRESS OR IMPLIED WARRANTIES OF ANY KIND INCLUDING BUT NOT LIMITED TO WARRANTIES THAT THE PRODUCT OR CONTENT ARE FREE OF DEFECTS, MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PRODUCT AND CONTENT IS BORNE BY LICENSEE. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS AGREEMENT. NO USE OF THE PRODUCT IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER.
+ALTHOUGH ALL CONTENT IS BELIEVED TO BE RELIABLE, RENOVATION SOFTWARE DOES NOT GUARANTEE THE RELIABILITY, ACCURACY, COMPLETENESS, SAFETY, TIMELINESS, LEGALITY, USEFULNESS, ADEQUACY, OR SUITABILITY OF ANY CONTENT. THE CONTENT MAY BE HARMFUL, UNTIMELY, INCOMPLETE, OR INACCURATE AND, ACCORDINGLY, YOU AGREE TO EXERCISE CAUTION, DISCRETION AND COMMON SENSE WHEN USING THE CONTENT.
+THE CONTENT IS NOT INTENDED TO SUBSTITUTE FOR INFORMED PROFESSIONAL ADVICE. THE LICENSEE SHOULD NOT USE THE PRODUCT OR CONTENT FOR EMERGENCY PURPOSES OR TO SEEK OR PROVIDE DIAGNOSIS OR TREATMENT OF MEDICAL, PSYCHIATRIC OR PSYCHOLOGICAL PROBLEMS, OR AS A SUBSTITUTE FOR FACE-TO-FACE PROFESSIONAL MEDICAL, PSYCHIATRIC, PSYCHOLOGICAL, TAX, LEGAL, INVESTMENT, ACCOUNTING, OR OTHER PROFESSIONAL CONSULTATION. 
+ 
+7. LIMITATION OF LIABILITY.
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL RENOVATION SOFTWARE, ITS LICENSORS, ITS SUPPLIERS OR RESELLERS BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF THE USE OF OR INABILITY TO USE THE PRODUCT OR CONTENT, INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER COMMERCIAL DAMAGES OR LOSSES, EVEN IF ADVISED OF THE POSSIBILITY THEREOF, AND REGARDLESS OF THE LEGAL OR EQUITABLE THEORY (CONTRACT, TORT OR OTHERWISE) UPON WHICH THE CLAIM IS BASED.  RENOVATION SOFTWARE IS NOT RESPONSIBLE FOR ANY LIABILITY ARISING OUT OF CONTENT PROVIDED BY LICENSEE OR A THIRD PARTY THAT IS ACCESSED THROUGH THE PRODUCT AND/OR ANY MATERIAL LINKED THROUGH SUCH CONTENT. IN ADDITION, LICENSEE SHALL BE SOLELY RESPONSIBLE, AT ITS OWN EXPENSE, FOR ACQUIRING, INSTALLING, MAINTAINING AND UPDATING ALL CONNECTIVITY EQUIPMENT, HARDWARE, SOFTWARE AND OTHER EQUIPMENT AS MAY BE NECESSARY FOR IT TO USE THE PRODUCT.
+
+9. RELEASE AND WAIVER. 
+LICENSEE USES RENOVATION SOFTWARE'S SERVICES AT HIS OR HER OWN RISK. To the maximum extent permitted by applicable law, You hereby release, and waive all claims against, Renovation Software and its employees and agents from any and all liability for claims, damages (actual and consequential), costs and expenses (including litigation costs and attorneys' fees) of every nature and kind, arising out of or in any way connected with use of the Site.
+
+9. MISCELLANEOUS. 
+(a) This Agreement constitutes the entire agreement between the parties concerning the subject matter hereof. 
+(b) This Agreement may be amended only by a writing signed by both parties. 
+(c) Except to the extent applicable law, if any, provides otherwise, this Agreement shall be governed by the laws of U.S.A.  
+(d) This Agreement shall not be governed by the United Nations Convention on Contracts for the International Sale of Goods. 
+(e) If any provision in this Agreement should be held illegal or unenforceable by a court having jurisdiction, such provision shall be modified to the extent necessary to render it enforceable without losing its intent, or severed from this Agreement if no such modification is possible, and other provisions of this Agreement shall remain in full force and effect. 
+ (f) The controlling language of this Agreement is English. If Licensee has received a translation into another language, it has been provided for Licensee's convenience only.
+ (g) A waiver by either party of any term or condition of this Agreement or any breach thereof, in any one instance, shall not waive such term or condition or any subsequent breach thereof. 
+ (h) The provisions of this Agreement which require or contemplate performance after the expiration or termination of this Agreement shall be enforceable notwithstanding said expiration or termination. 
+ (i) Licensee may not assign or otherwise transfer by operation of law or otherwise this Agreement or any rights or obligations herein except in the case of a merger or the sale of all or substantially all of Licensee's assets to another entity. Licensor may assign this Agreement to a third party at any time. 
+ (j) This Agreement shall be binding upon and shall inure to the benefit of the parties, their successors and permitted assigns. 
+ (k) Neither party shall be in default or be liable for any delay, failure in performance (excepting the obligation to pay) or interruption of service resulting directly or indirectly from any cause beyond its reasonable control. 
+ (l) The relationship between Renovation Software and Licensee is that of independent contractors and neither Licensee nor its agents shall have any authority to bind Renovation Software in any way. 
+(m) If any dispute arises under this Agreement, the prevailing party shall be reimbursed by the other party for any and all legal fees and costs associated therewith. 
+(n) If any Renovation Software professional services are being provided, then such professional services are provided pursuant to the terms of a separate Professional Services Agreement between Renovation Software and Licensee. The parties acknowledge that such services are acquired independently of the Product licensed hereunder, and that provision of such services is not essential to the functionality of such Product. 
+(o) The headings to the sections of this Agreement are used for convenience only and shall have no substantive meaning. 
+
+10. LICENSEE OUTSIDE THE U.S. 
+If Licensee is located outside the U.S., then Licensee is responsible for complying with any local laws in its jurisdiction which might impact its right to import, export or use the Product, and Licensee represents that it has complied with any regulations or registration procedures required by applicable law to make this license enforceable.
