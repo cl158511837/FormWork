@@ -1,206 +1,77 @@
-[Serializable, StructLayout(LayoutKind.Sequential)]
-public struct RECT
+using System;
+using System.ComponentModel;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using System.Drawing;
+
+namespace compass.Common
 {
-    public RECT(Rectangle rect)
+    public partial class myLabel : System.Windows.Forms.Label
     {
-        Left = rect.Left;
-        Top = rect.Top;
-        Right = rect.Right;
-        Bottom = rect.Bottom;
-    }
+        int lineDistance = 5;//行间距
 
-    public Rectangle Rect
-    {
-        get
+        public int LineDistance
         {
-            return new Rectangle(Left, Top, Right - Left, Bottom - Top);
+            get { return lineDistance; }
+            set { lineDistance = value; }
         }
-    }
-
-    public Point Location
-    {
-        get
+        public myLabel()
         {
-            return new Point(Left, Top);
+            InitializeComponent();
         }
-    }
 
-    public int Left;
-    public int Top;
-    public int Right;
-    public int Bottom;
-}
-
-public class ToolTipComboBox: ComboBox
-{
-    #region Fields
-
-    private ToolTip toolTip;
-    private bool _tooltipVisible;
-    private bool _dropDownOpen;
-    #endregion
-
-    #region Types
-
-    [StructLayout(LayoutKind.Sequential)]
-    // ReSharper disable once InconsistentNaming
-    public struct COMBOBOXINFO
-    {
-        public Int32 cbSize;
-        public RECT rcItem;
-        public RECT rcButton;
-        public ComboBoxButtonState buttonState;
-        public IntPtr hwndCombo;
-        public IntPtr hwndEdit;
-        public IntPtr hwndList;
-    }
-
-    public enum ComboBoxButtonState
-    {
-        // ReSharper disable once UnusedMember.Global
-        StateSystemNone = 0,
-        // ReSharper disable once UnusedMember.Global
-        StateSystemInvisible = 0x00008000,
-        // ReSharper disable once UnusedMember.Global
-        StateSystemPressed = 0x00000008
-    }
-
-    [DllImport("user32.dll")]
-    public static extern bool GetComboBoxInfo(IntPtr hWnd, ref COMBOBOXINFO pcbi);
-    [DllImport("user32.dll", SetLastError = true)]
-    public static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
-
-    #endregion
-
-    #region Properties
-
-    private IntPtr HwndCombo
-    {
-        get
+        public myLabel(IContainer container)
         {
-            COMBOBOXINFO pcbi = new COMBOBOXINFO();
-            pcbi.cbSize = Marshal.SizeOf(pcbi);
-            GetComboBoxInfo(Handle, ref pcbi);
-            return pcbi.hwndCombo;
+            container.Add(this);
+
+            InitializeComponent();
         }
-    }
-
-    private IntPtr HwndDropDown
-    {
-        get
+        protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
-            COMBOBOXINFO pcbi = new COMBOBOXINFO();
-            pcbi.cbSize = Marshal.SizeOf(pcbi);
-            GetComboBoxInfo(Handle, ref pcbi);
-            return pcbi.hwndList;
-        }
-    }
+            Graphics g = e.Graphics;
+            String drawString = this.Text;
+            Font drawFont = this.Font;
+            SolidBrush drawBrush = new SolidBrush(this.ForeColor);
+            SizeF textSize = g.MeasureString(this.Text, this.Font);//文本的矩形区域大小
+            int lineCount = Convert.ToInt16(textSize.Width / this.Width) + 1;//计算行数
 
-    [Browsable(false)]
-    public new DrawMode DrawMode
-    {
-        get { return base.DrawMode; }
-        set { base.DrawMode = value; }
-    }
-
-    #endregion
-
-    #region ctor
-
-    public ToolTipComboBox()
-    {
-        toolTip = new ToolTip
-        {
-            UseAnimation = false,
-            UseFading = false
-        };
-
-        base.DrawMode = DrawMode.OwnerDrawFixed;
-        DrawItem += OnDrawItem;
-        DropDownClosed += OnDropDownClosed;
-        DropDown += OnDropDown;
-        MouseLeave += OnMouseLeave;
-    }
-
-    #endregion
-
-    #region Methods
-
-    private void OnDropDown(object sender, EventArgs e)
-    {
-        _dropDownOpen = true;
-    }
-
-    private void OnMouseLeave(object sender, EventArgs e)
-    {
-        ResetToolTip();
-    }
-
-    private void ShowToolTip(string text, int x, int y)
-    {
-        toolTip.Show(text, this, x, y);
-        _tooltipVisible = true;
-    }
-
-    private void OnDrawItem(object sender, DrawItemEventArgs e)
-    {
-        ComboBox cbo = sender as ComboBox;
-        if (e.Index == -1) return;
-
-        // ReSharper disable once PossibleNullReferenceException
-        string text = cbo.GetItemText(cbo.Items[e.Index]);
-        e.DrawBackground();
-
-        if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-        {
-            TextRenderer.DrawText(e.Graphics, text, e.Font, e.Bounds.Location, SystemColors.Window);
-
-            if (_dropDownOpen)
+            this.Height = Convert.ToInt16((textSize.Height + lineDistance) * lineCount);//计算调整后的高度
+            this.AutoSize = false;
+            float x = 0.0F;
+            float y = 0.0F;
+            StringFormat drawFormat = new StringFormat();
+            int step = 1;
+            lineCount = drawString.Length;//行数不超过总字符数目
+            for (int i = 0; i < lineCount; i++)
             {
-                Size szText = TextRenderer.MeasureText(text, cbo.Font);
-                if (szText.Width > cbo.Width - SystemInformation.VerticalScrollBarWidth && !_tooltipVisible)
+                //计算每行容纳的字符数目
+                int charCount;
+                for (charCount = 0; charCount < drawString.Length; charCount++)
                 {
-                    RECT rcDropDown;
-                    GetWindowRect(HwndDropDown, out rcDropDown);
-
-                    RECT rcCombo;
-                    GetWindowRect(HwndCombo, out rcCombo);
-
-                    if (rcCombo.Top > rcDropDown.Top)
+                    string subN = drawString.Substring(0, charCount);
+                    string subN1 = drawString.Substring(0, charCount + 1);
+                    if (g.MeasureString(subN, this.Font).Width <= this.Width
+                        && g.MeasureString(subN1, this.Font).Width > this.Width)
                     {
-                        ShowToolTip(text, e.Bounds.X, e.Bounds.Y - rcDropDown.Rect.Height - cbo.ItemHeight - 5);
+                        step = charCount;
+                        break;
                     }
-                    else
-                    {
-                        ShowToolTip(text, e.Bounds.X, e.Bounds.Y + cbo.ItemHeight - cbo.ItemHeight);
-                    }
+                }
+                string subStr;
+                if (charCount == drawString.Length)//最后一行文本
+                {
+                    subStr = drawString;
+                    e.Graphics.DrawString(subStr, drawFont, drawBrush, x, Convert.ToInt16(textSize.Height * i) + i * LineDistance, drawFormat);
+                    break;
+                }
+                else
+                {
+                    subStr = drawString.Substring(0, step);//当前行文本
+                    drawString = drawString.Substring(step);//剩余文本
+                    e.Graphics.DrawString(subStr, drawFont, drawBrush, x, Convert.ToInt16(textSize.Height * i) + i * LineDistance, drawFormat);
                 }
             }
         }
-        else
-        {
-            ResetToolTip();
-            TextRenderer.DrawText(e.Graphics, text, e.Font, e.Bounds.Location, cbo.ForeColor);
-        }
-
-        e.DrawFocusRectangle();
     }
-
-    private void OnDropDownClosed(object sender, EventArgs e)
-    {
-        _dropDownOpen = false;
-        ResetToolTip();
-    }
-
-    private void ResetToolTip()
-    {
-        if (_tooltipVisible)
-        {
-            // ReSharper disable once AssignNullToNotNullAttribute
-            toolTip.SetToolTip(this, null);
-            _tooltipVisible = false;
-        }
-    }
-
-    #endregion
 }
